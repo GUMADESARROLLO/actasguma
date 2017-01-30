@@ -42,8 +42,9 @@
 						<label>FECHA</label>
 					</div>
 					<div class="input-field col s12">
-						<select multiple id="UAparticipantes[]" name="UAparticipantes[]">
+						<select multiple id="UAparticipantes[]" name="UAparticipantes[]" class="UAparticipantes">
 							<option value="0" disabled selected>SELECCIONAR PARTICIPANTES</option>
+							<option value="00">TODOS LOS PARTICIPANTES</option>
 							<?php
 								foreach ($participantes as $participante) {
 									$select = '';
@@ -58,6 +59,18 @@
 							?>
 						</select>
 					</div>
+					<div class="row">
+						<div class="input-field col s12">
+							<label class="label">PARTICIPANTES INVITADOS</label>
+						</div>
+					</div>
+					<div class="input-field col s12">
+			          <textarea id="UAinvitados" name="UAinvitados" class="editor">
+			          	<?php 
+							echo $actacompleta[0]["invitados"];
+						?>
+			          </textarea>
+			        </div>
 					<div class="row">
 						<div class="input-field col s12">
 							<label class="label">OBJETIVOS</label>
@@ -113,10 +126,10 @@
 		<div class="row text_center">
 			<div class="input-field col s12">
 			<?php 
-				echo "<a href='".base_url()."actacompleta/".$actacompleta[0]["id_acta"]."' class='waves-effect waves-light btn-large color-principal btn_margin'><i class='material-icons left'>cancel</i>CANCELAR</a h>";
+				echo "<a href='".base_url()."actacompleta/".$actacompleta[0]["id_acta"]."' class='waves-effect waves-light btn-large btn_margin'><i class='material-icons left'>cancel</i>CANCELAR</a h>";
 			 ?>
 				
-				<button class="waves-effect waves-light btn-large color-principal btn_margin" id="btnupdateacta" type="button"><i class="material-icons left">done_all</i>Actualizar</button>
+				<button class="waves-effect waves-light btn-large btn_margin" id="btnupdateacta" type="button"><i class="material-icons left">done_all</i>Actualizar</button>
 			</div>
 		</div>
 

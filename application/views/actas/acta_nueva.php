@@ -36,15 +36,24 @@
 						<label>FECHA</label>
 					</div>
 					<div class="input-field col s12">
-					    <select multiple id="NAparticipantes[]" name="NAparticipantes[]">
-					   		<option value="0" disabled selected>SELECCIONAR PARTICIPANTES</option>
+					    <select multiple id="NAparticipantes[]" name="NAparticipantes[]" class="NAparticipantes">
+					   		<option value="" disabled selected>SELECCIONAR PARTICIPANTES</option>
+					   		<option value="00">TODOS LOS PARTICIPANTES</option>
 							<?php
 							foreach ($participantes as $participantes)
-								echo '<option value="'.$participantes['id_participante'].'">'.$participantes['nombres']." ".$participantes['apellidos'].'</option>';
+								echo '<option  value="'.$participantes['id_participante'].'">'.$participantes['nombres']." ".$participantes['apellidos'].'</option>';
 							?>
 						</select>
 					</div>
 					<div class="row">
+						<div class="input-field col s12">
+							<label class="label">PARTICIPANTES INVITADOS</label>
+						</div>
+					</div>
+					<div class="input-field col s12">
+			          <textarea id="NAinvitados" name="NAinvitados" class="editor"></textarea>
+			        </div>
+			        <div class="row">
 						<div class="input-field col s12">
 							<label class="label">OBJETIVOS</label>
 						</div>
@@ -82,7 +91,8 @@
 
 		<div class="row text_center">
 			<div class="input-field col s12">
-				<button class="waves-effect waves-light btn-large center-block color-principal" id="btnguardaracta" type="button"><i class="material-icons left">done_all</i>Guardar</button>
+				<a href=" <?php echo base_url();?>actas" class="waves-effect waves-light btn-large"type="button"><i class="material-icons left">cancel</i>CANCELAR</a>
+				<button class="waves-effect waves-light btn-large center-block" id="btnguardaracta" type="button"><i class="material-icons left">done_all</i>Guardar</button>
 			</div>
 		</div>
     </div>

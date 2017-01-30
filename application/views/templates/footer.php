@@ -12,13 +12,13 @@
 	  		$('textarea').trigger('autoresize');
 	  		$('.tooltipped').tooltip({delay: 50});
 			$('.datepicker').pickadate({
-				monthsFull: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ],
+				monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
 				weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
 				today: 'hoy',
 			    clear: 'borrar',
 			    close: 'cerrar',
-				format: 'yyyy-m-dd',
-				//formatSubmit: 'yyyy m dd',
+				//format: 'dd - mm - yyyy',
+				format: 'yyyy/mm/dd',
 				selectMonths: true,
 				selectYears: 15
 			});

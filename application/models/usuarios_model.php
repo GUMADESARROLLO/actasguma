@@ -84,15 +84,6 @@ class Usuarios_model extends CI_Model {
             'id_tipousuario' => $id_tipousuario,
             'id_empresa' => $id_empresa
          );
-         $this->db->where('id_usuario', $id_usuario);
-         $this->db->update('usuarios', $data);
-         if ($this->db->affected_rows() > 0) {
-           return true;
-         }
-         else{
-           return false;
-         }
-
       }else{
          $data = array(
             'usuario' => $usuario,
@@ -103,14 +94,14 @@ class Usuarios_model extends CI_Model {
             'id_tipousuario' => $id_tipousuario,
             'id_empresa' => $id_empresa
          );
-         $this->db->where('id_usuario', $id_usuario);
-         $this->db->update('usuarios', $data);
-         if ($this->db->affected_rows() > 0) {
-           return true;
-         }
-         else{
-           return false;
-         }
+      }
+      $this->db->where('id_usuario', $id_usuario);
+      $this->db->update('usuarios', $data);
+      if ($this->db->affected_rows() > 0) {
+        return true;
+      }
+      else{
+        return false;
       }
 
    }//FIN ACTUALIZAR USUARIO

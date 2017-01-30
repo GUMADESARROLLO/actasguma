@@ -9,12 +9,16 @@
 	padding-bottom: 50px;
 }
 
-.color-principal{
-	background-color: #289DCC;
+nav{
+	background-color: #3498db !important;
 }
 
-.btncolor{
-	background-color: #289DCC;
+.btn, .btn-large{
+	background-color: #3498db !important;
+}
+
+.btn, .btn-large:hover{
+	background-color: rgba(52, 152, 219, 0.8) !important;
 }
 
 .card-titulos, .card-title{
@@ -113,6 +117,17 @@ p{
 
 .card-secciones h5{
 	padding-bottom: 10px;
+}
+
+.invitados{
+	font-weight: bold;
+    font-size: 17px;
+}
+
+.invitados li, .ulparticipantes li{
+	list-style: circle;
+	list-style-type: circle !important;
+	margin-left: 20px;
 }
 
 .li_item{

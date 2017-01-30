@@ -71,7 +71,7 @@
 						
 						<div class="row text_center">
 							<div class="input-field col s12 text_center">
-								<a href=" <?php echo base_url();?>usuarios" class="waves-effect waves-light btn-large"type="button"><i class="material-icons left">cancel</i>CANCELAR</a>
+								<a href=" <?php echo base_url();?>usuarios" class="waves-effect waves-light btn-large"><i class="material-icons left">cancel</i>CANCELAR</a>
 								<button class="waves-effect waves-light btn-large" id="btnactualizarusuario" type="button"><i class="material-icons left">done_all</i>Guardar</button>
 							</div>
 						</div>

@@ -16,7 +16,6 @@ class Actas_controller extends CI_Controller {
       $idusuarioempresa = $this->session->userdata('id_empresa');
       $usuariotipo = $this->session->userdata('tipousuario');
       $data = array();
-      //$data['actas'] = $this->actas_model->listartodaslasactas();
       $data['empresas'] = $this->actas_model->cargarempresas($idusuarioempresa, $usuariotipo);
 
       $this->load->view('templates/header');
@@ -32,30 +31,31 @@ class Actas_controller extends CI_Controller {
       $id_empresafiltro = $this->input->post('empresafiltro');
       $data = $this->actas_model->seleccionar_acta_por_id_empresa($id_empresafiltro, $idusuarioempresa, $usuariotipo);
       if($data != false){
-         $output_string = '';
+         $html = '';
          foreach ($data as $acta) {
-               $output_string .= '<div class=card>';
-               $output_string .= '<div class="card-content">';
-               $output_string .= '<span class="num_acta"><h5>ACTA N° '.$acta->id_acta.' </h5></span>';
-               $output_string .= '<span class="card-title"><h4> '.$acta->empresa.' </h4></span>';
-               $output_string .= '<span class="card-titulos">LUGAR: '.$acta->lugar.' </span>';
-               $output_string .= '<span class="card-titulos">Fecha: '.$acta->fecha.' </span>';
-               $output_string .= '<div class="card-descripcion">';
-               $output_string .= '<h5><i class="material-icons">description</i> OBJETIVOS</h5>';
-               $output_string .= '<div> '.$acta->objetivos.' </div>';
-               $output_string .= '</div>';
-               $output_string .= '</div>';
-               $output_string .= '<div class="card-action">';
-               $output_string .= '<a href="'.base_url().'modificar/'.$acta->id_acta.'">EDITAR EL ACTA</a>';
-               $output_string .= '<a href="'.base_url().'actacompleta/'.$acta->id_acta.'">VER ACTA COMPLETA</a>';
-               $output_string .= '</div>';
-               $output_string .= '</div>';
+               $html .= '<div class=card>';
+               $html .= '<div class="card-content">';
+               $html .= '<span class="num_acta"><h5>ACTA N° '.$acta->id_acta.' </h5></span>';
+               $html .= '<span class="card-title"><h4> '.$acta->empresa.' </h4></span>';
+               $html .= '<span class="card-titulos">LUGAR: '.$acta->lugar.' </span>';
+               //$html .= '<span class="card-titulos">Fecha: '.$acta->fecha.' </span>';
+               $html .= '<span class="card-titulos">Fecha: '.date("d-m-Y", strtotime($acta->fecha)).' </span>';
+               $html .= '<div class="card-descripcion">';
+               $html .= '<h5><i class="material-icons">description</i> OBJETIVOS</h5>';
+               $html .= '<div> '.$acta->objetivos.' </div>';
+               $html .= '</div>';
+               $html .= '</div>';
+               $html .= '<div class="card-action">';
+               $html .= '<a href="'.base_url().'modificar/'.$acta->id_acta.'">EDITAR EL ACTA</a>';
+               $html .= '<a href="'.base_url().'actacompleta/'.$acta->id_acta.'">VER ACTA COMPLETA</a>';
+               $html .= '</div>';
+               $html .= '</div>';
             }              
       }
       else{
-         $output_string = false;
+         $html = false;
       }
-      echo json_encode($output_string);
+      echo json_encode($html);
    }
 
 
@@ -66,7 +66,6 @@ class Actas_controller extends CI_Controller {
       $datos['participantes'] = $this->actas_model->loadparticipantes();
       $datos['lugares'] = $this->actas_model->loadlugares();
       $datos['empresas'] = $this->actas_model->cargarempresas($idusuarioempresa, $usuariotipo);
-      //$datos['empresas'] = $this->actas_model->loadempresas();
 
       $this->load->view('templates/header');
       $this->load->view('templates/menuprincipal');
@@ -76,15 +75,6 @@ class Actas_controller extends CI_Controller {
 
 
    public function guardaracta(){
-
-      /*$empresa = $this->input->post('empresa');
-      $lugar = $this->input->post('lugar');
-      $fecha = $this->input->post('fecha');
-      $objetivos = $this->input->post('objetivos');
-      $pen_anteriores = $this->input->post('pen_anteriores');
-      $avances_actividades = $this->input->post('avances_actividades');
-      $acuerdos = $this->input->post('acuerdos');*/
-
       $participantes = $this->input->post('NAparticipantes');
       $datos = array(
          "fecha" => $this->input->post('NAfecha'),
@@ -93,30 +83,39 @@ class Actas_controller extends CI_Controller {
          "id_lugar" => $this->input->post('NAlugar'),
          "pendientes_anteriores" => $this->input->post('NApen_anteriores'),
          "avances_actividades" => $this->input->post('NAavances_actividades'),
-         "acuerdos" => $this->input->post('NAacuerdos')
+         "acuerdos" => $this->input->post('NAacuerdos'),
+         "invitados" => $this->input->post('NAinvitados')
       );
-
+      
       $id_acta = $this->actas_model->guardaracta($datos);
-         
       $listaparticipante = array();
 
-      if($id_acta !=  FALSE){
-         for ($i=0; $i < sizeof($participantes); $i++) { 
-            $listaparticipante[] = array(
-               "id_participante" => $participantes[$i],
-               "id_acta" => $id_acta,
-            ); 
+      if ($id_acta !=  FALSE) {
 
+        if ($participantes[0] != 00) {
+           for ($i=0; $i < sizeof($participantes); $i++) { 
+               $listaparticipante[] = array(
+                  "id_participante" => $participantes[$i],
+                  "id_acta" => $id_acta,
+               ); 
+            }
+         }else{
+            $db = $this->actas_model->loadparticipantes();
+            foreach ($db as $key) {
+               $listaparticipante[] = array(
+                  "id_participante" => $key['id_participante'],
+                  "id_acta" => $id_acta,
+               );
+            }
          }
          if ($this->actas_model->guardaractaparticipante($listaparticipante) == TRUE) {
             $this->nueva_acta();
          }else{
-           echo  "0";
+           echo  "ERROR AL GUARDAR LOS PARTICIPANTES";
          }
 
-      }
-      else{
-         echo  "0";
+      }else{
+         echo  "ERROR AL GUARDAR EL ACTA";
       }
 
    }
@@ -132,29 +131,35 @@ class Actas_controller extends CI_Controller {
          "id_lugar" => $this->input->post('UAlugar'),
          "pendientes_anteriores" => $this->input->post('UApen_anteriores'),
          "avances_actividades" => $this->input->post('UAavances_actividades'),
-         "acuerdos" => $this->input->post('UAacuerdos')
+         "acuerdos" => $this->input->post('UAacuerdos'),
+         "invitados" => $this->input->post('UAinvitados')
       );
 
 
-      $actaresul = $this->actas_model->updateacta($id_acta ,$datos);
-      
+      $this->actas_model->updateacta($id_acta ,$datos);
       $listaparticipante = array();
 
-      for ($i=0; $i < sizeof($participantes); $i++) { 
-         $listaparticipante[] = array(
-            "id_participante" => $participantes[$i],
-            "id_acta" => $id_acta,
-         ); 
-
-      }  
-      $participantesresult = $this->actas_model->updateactaparticipante($id_acta ,$listaparticipante);
-      if ($participantesresult == TRUE) {
+      if ($participantes[0] != 00) {
+         for ($i=0; $i < sizeof($participantes); $i++) { 
+            $listaparticipante[] = array(
+               "id_participante" => $participantes[$i],
+               "id_acta" => $id_acta,
+            ); 
+         }  
+      }else{
+         $db = $this->actas_model->loadparticipantes();
+         foreach ($db as $key) {
+            $listaparticipante[] = array(
+               "id_participante" => $key['id_participante'],
+               "id_acta" => $id_acta,
+            );
+         }
+      }
+      if ($this->actas_model->updateactaparticipante($id_acta ,$listaparticipante) == TRUE) {
         redirect(base_url().'actacompleta/'.$id_acta);
-        //echo "PARTICIPANTES ACTUALIZADOS";
       }
       else{
          redirect(base_url().'actacompleta/'.$id_acta); 
-         //echo "PARTICIPANTES NO ACTUALIZADOS";
       }
       
    }

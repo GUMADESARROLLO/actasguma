@@ -2,7 +2,7 @@
 	    <div class="nav-wrapper">
 	    	<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul id="nav-mobile" class="left hide-on-med-and-down">
-				<li class="<?php if($this->uri->segment(1)=="actas"){echo "active";}?>"><a href="<?php echo base_url();?>actas">LISTADO DE ACTAS</a></li>
+				<li class="<?php if($this->uri->segment(1)=="actas" || $this->uri->segment(1)=="actacompleta" || $this->uri->segment(1)=="modificar"){echo "active";}?>"><a href="<?php echo base_url();?>actas">ACTAS GUMA</a></li>
 				<li class="<?php if($this->uri->segment(1)=="nueva"){echo "active";}?>"><a href="<?php echo base_url();?>nueva">NUEVA ACTA</a></li>
 				<?php 
 					if ($this->session->userdata('tipousuario') == "A") {
@@ -29,15 +29,12 @@
 			 <img src="<?php echo base_url();?>asset/img/guma.png" class="sidenavimg"/>
 		</div>
 		<?php
-			$nombres =  $this->session->userdata('nombres');
-			$apellidos =  $this->session->userdata('apellidos');
-			$nombretipousuario =  $this->session->userdata('nombretipousuario');
-			echo "<a href='#!name'><span class='name'>".$nombres.' '.$apellidos."</span></a>";
-			echo "<a href='#!email'><span class='email'>".$nombretipousuario."</span></a>";
+			echo "<a href='#!name'><span class='name'>".$this->session->userdata('nombres').' '.$this->session->userdata('apellidos')."</span></a>";
+			echo "<a href='#!email'><span class='email'>".$this->session->userdata('nombretipousuario')."</span></a>";
 		 ?>
 		</div>
 	</li>
-		<li class="<?php if($this->uri->segment(1)=="actas"){echo "active";}?>"><a href="<?php echo base_url();?>actas"><i class="material-icons">description</i>LISTADO DE ACTAS</a></li>
+		<li class="<?php if($this->uri->segment(1)=="actas" || $this->uri->segment(1)=="actacompleta"  ){echo "active";}?>"><a href="<?php echo base_url();?>actas"><i class="material-icons">description</i>ACTAS GUMA</a></li>
 		<li class="<?php if($this->uri->segment(1)=="nueva"){echo "active";}?>"><a href="<?php echo base_url();?>nueva"><i class="material-icons">description</i>NUEVA ACTA</a></li>
 		<?php 
 			if ($this->session->userdata('tipousuario') == "A") {

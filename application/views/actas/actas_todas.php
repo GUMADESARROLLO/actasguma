@@ -25,34 +25,6 @@
         	<div id="datos">
         		
         	</div>
-
-        <?php
-	        
-	        /*if (empty($actas)) {
-	        	echo "<i class='material-icons icoinfo'>folder</i>";
-	        	echo "<h2 class='icoinfotext'>NO HAY DATOS</h2>";
-	        }else{
-	        	foreach ($actas as $acta) {
-	        		echo "<div class='card'>";
-	 				echo "<div class='card-content'>";
-	 				echo "<span class='num_acta'><h5> $acta->id_acta </h5></span>";
-	 				echo "<span class='card-title'><h4> $acta->empresa </h4></span>";
-	 				echo "<span class='card-titulos'>LUGAR: $acta->lugar </span>";
-	 				echo "<span class='card-titulos'>Fecha: $acta->fecha </span>";
-	 				echo "<div class='card-descripcion'>";
-	 				echo "<h5><i class='material-icons'>description</i> OBJETIVOS</h5>";
-	 				echo "<div> $acta->objetivos </div>";
-	 				echo "</div>";
-	 				echo "</div>";
-	 				echo "<div class='card-action'>";
-	 				echo "<a href='".base_url()."editar/".$acta->id_acta."'>EDITAR EL ACTA</a>";
-	 				echo "<a href='".base_url()."actacompleta/".$acta->id_acta."'>VER ACTA COMPLETA</a>";
-	 				echo "</div>";
-	 				echo "</div>";
-	        	}
-	        }*/
-
-         ?>
         </div>
       </div>
     </div>
